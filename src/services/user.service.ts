@@ -22,13 +22,37 @@ export class UserService {
 
     async checkUserExist(email: string, password: string): Promise<UserDto | undefined> {
         return await this.userRepository.checkUserExist(email, password)
-            .then(user => {
-                if (!user) {
+            .then((userAsPojo: UserPojo) => {
+                if (!userAsPojo) {
                     return undefined;
                 }
 
-                return this.parsePojoIntoDto(user);
+                return this.parsePojoIntoDto(userAsPojo);
             })
+            .catch(exception => {
+                console.error(exception);
+                throw exception;
+            })
+    }
+
+    async getUserById(userId: string): Promise<UserDto | undefined> {
+        return await this.userRepository.getUserById(userId)
+            .then(userAsPojo => {
+                if (!userAsPojo) {
+                    return undefined;
+                }
+
+                return this.parsePojoIntoDto(userAsPojo);
+            })
+            .catch(exception => {
+                console.error(exception);
+                throw exception;
+            })
+    }
+
+    async increaseWallet(user: UserDto, wallet: number): Promise<number> {
+        return await this.userRepository.increaseWallet(user, wallet)
+            .then(newWallet => newWallet)
             .catch(exception => {
                 console.error(exception);
                 throw exception;
