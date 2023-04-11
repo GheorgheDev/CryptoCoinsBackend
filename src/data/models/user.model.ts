@@ -2,8 +2,8 @@ import { STRING, NUMBER, DATE } from "sequelize";
 import { Table, Column, Model } from "sequelize-typescript";
 
 @Table({
-    freezeTableName: true, // Esta propiedad se usa para evitar que Sequelize modifique el nombre de la tabla en la base de datos al crear un modelo
-    tableName: "user", // Es importante tener esta propiedad si la anterior esta a true para saber el nombre de la tabla en la BBDD
+    freezeTableName: true,
+    tableName: "user",
     schema: "public",
     createdAt: false,
     updatedAt: false
