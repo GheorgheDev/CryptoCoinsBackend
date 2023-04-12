@@ -16,6 +16,14 @@ export class UserCoinsRepository {
         this._coinRepository = new CoinRepository();
     }
 
+    async getUserCoinsByUserId(userId: string): Promise<UserCoinsPojo[]> {
+        return await this._userCoinsRepository.findAll({
+            where: {
+                user_id: userId
+            }
+        });
+    }
+
     async checkUserCoinsExist(user_id: string, coin_id: string): Promise<UserCoinsPojo> {
         return await this._userCoinsRepository.findOne({
             where: {

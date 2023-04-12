@@ -1,4 +1,4 @@
-import { UserCoinsDto } from "../types";
+import { CoinsBuyOrSellDto, UserCoinsDto } from "../types";
 import { UserCoinsPojo } from "../data/models/userCoins.model";
 import { UserCoinsRepository } from "../data/repositories/userCoins.repository";
 
@@ -9,7 +9,18 @@ export class UserCoinsService {
         this._userCoinsRepository = new UserCoinsRepository();
     }
 
-    async buyCoins(coinsToBuy: any): Promise<number> { // TODO: quitar el any
+    async getUserCoinsByUserId(userId: string): Promise<UserCoinsDto[]> {
+        return await this._userCoinsRepository.getUserCoinsByUserId(userId)
+            .then(userCoinsAsPojo => {
+                return userCoinsAsPojo.map(userCoinAsPojo => this.parsePojoIntoDto(userCoinAsPojo));
+            })
+            .catch(exception => {
+                console.error(exception);
+                throw exception;
+            })
+    }
+
+    async buyCoins(coinsToBuy: CoinsBuyOrSellDto): Promise<number> {
         return await this._userCoinsRepository.buyCoins(coinsToBuy)
             .then(walletUpdated => walletUpdated)
             .catch(exception => {
@@ -18,7 +29,7 @@ export class UserCoinsService {
             })
     }
 
-    async sellCoins(coinsToSell: any): Promise<number> { // TODO: quitar el any
+    async sellCoins(coinsToSell: CoinsBuyOrSellDto): Promise<number> {
         return await this._userCoinsRepository.sellCoins(coinsToSell)
             .then(walletUpdated => walletUpdated)
             .catch(exception => {
