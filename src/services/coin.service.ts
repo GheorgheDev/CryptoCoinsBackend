@@ -9,9 +9,15 @@ export class CoinService {
         this._coinRepository = new CoinRepository();
     }
 
-    async getCoinById(coinId: string): Promise<CoinDto> {
+    async getCoinById(coinId: string): Promise<CoinDto | undefined> {
         return await this._coinRepository.getCoinById(coinId)
-            .then(coinAsPojo => this.parsePojoIntoDto(coinAsPojo))
+            .then(coinAsPojo => {
+                if (!coinAsPojo) {
+                    return undefined;
+                }
+
+                return this.parsePojoIntoDto(coinAsPojo);
+            })
             .catch(exception => {
                 console.error(exception);
                 throw exception;
