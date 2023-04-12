@@ -32,9 +32,10 @@ export class UserCoinsRepository {
             await this._userRepository.updateUserWallet(coinsToBuy.user_id, coinsToBuy.wallet);
 
             const userCoinsExist = await this.checkUserCoinsExist(coinsToBuy.user_id, coinsToBuy.coin_id);
-            const amountUpdated = parseInt(userCoinsExist.dataValues.amount) + parseInt(coinsToBuy.amount);
 
             if (userCoinsExist) {
+                const amountUpdated = parseInt(userCoinsExist.dataValues.amount) + parseInt(coinsToBuy.amount);
+
                 await this._userCoinsRepository.update({ amount: amountUpdated }, {
                     where: {
                         user_id: coinsToBuy.user_id,
