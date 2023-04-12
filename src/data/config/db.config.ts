@@ -1,20 +1,25 @@
 import { Sequelize } from 'sequelize-typescript';
 import { UserPojo } from '../models/user.model';
+import { CoinPojo } from '../models/coin.model';
+import { UserCoinsPojo } from '../models/userCoins.model';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 export const connect = () => {
-    const DB_HOSTNAME = 'localhost';
-    const DB_PORT = 5432;
-    const DB_NAME = 'crypto_coins';
-    const DB_USERNAME = 'postgres';
-    const DB_PASSWORD = '1996';
-    const DB_SCHEMA = 'public';
-    const DB_DIALECT: any = 'postgres';
+    const db_hostname = process.env.DB_HOSTNAME;
+    const db_port = parseInt(process.env.DB_PORT);
+    const db_name = process.env.DB_NAME;
+    const db_username = process.env.DB_USERNAME;
+    const db_password = process.env.DB_PASSWORD;
+    const db_schema = process.env.DB_SCHEMA;
+    const db_dialect: any = process.env.DB_DIALECT;
 
-    const dbConfig = new Sequelize(DB_NAME, DB_USERNAME, DB_PASSWORD, {
-        host: DB_HOSTNAME,
-        dialect: DB_DIALECT,
-        schema: DB_SCHEMA,
-        port: DB_PORT,
+    const dbConfig = new Sequelize(db_name, db_username, db_password, {
+        host: db_hostname,
+        dialect: db_dialect,
+        schema: db_schema,
+        port: db_port,
         repositoryMode: true,
         pool: {
             max: 10,
@@ -24,7 +29,7 @@ export const connect = () => {
         }
     })
 
-    dbConfig.addModels([UserPojo]);
+    dbConfig.addModels([UserPojo, CoinPojo, UserCoinsPojo]);
 
     const db: any = {};
     db.Sequelize = Sequelize;
