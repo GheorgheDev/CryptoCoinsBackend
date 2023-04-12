@@ -60,4 +60,12 @@ export class UserRepository {
             return -1;
         }
     }
+
+    async updateUserWallet(userId: string, walletUpdated: number): Promise<void> {
+        await this._userRepository.update({ wallet: walletUpdated }, {
+            where: {
+                user_id: userId
+            }
+        })
+    }
 }
