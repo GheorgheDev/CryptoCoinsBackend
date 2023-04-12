@@ -7,3 +7,17 @@ export interface UserDto {
     password: string;
     wallet: number;
 }
+
+export interface CoinDto {
+    coin_id: string;
+    name: string;
+    value: number;
+    image: string;
+    stock: number;
+}
+
+export interface UserCoinsDto {
+    user_id: string;
+    coin_id: string;
+    amount: number;
+}
