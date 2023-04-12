@@ -1,3 +1,9 @@
+# Modelo de la base de datos
+
+<p align="center">
+  <img src="https://github.com/GheorgheDev/CryptoCoinsBackend/blob/main/BBDD.png" alt="Sublime's custom image"/>
+</p>
+
 # EndPoints
 
 http://localhost:3000/api/users/create/user --> Crear un nuevo usuario
