@@ -1,17 +1,18 @@
 import express, { Express } from 'express';
 import userRouter from './routes/user.routes';
+import coinRouter from './routes/coin.routes';
+import userCoinsRouter from './routes/userCoins.routes';
 import dotenv from 'dotenv';
 
 dotenv.config();
 const app: Express = express();
-/*
-  Es un middleware que permite analizar el body de una petición que contiene datos en formato JSON y convertirlo
-  en un objeto de JS para poder manipularlo y usarlo
-*/
+
 app.use(express.json());
 const port = process.env.PORT;
 
 app.use('/api/users', userRouter);
+app.use('/api/coins', coinRouter);
+app.use('/api/user-coins', userCoinsRouter);
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
