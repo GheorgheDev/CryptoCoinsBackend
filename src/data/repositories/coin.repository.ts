@@ -37,4 +37,12 @@ export class CoinRepository {
             return [];
         }
     }
+
+    async updateCoinStock(coinId: string, stockUpdated: number): Promise<void> {
+        await this._coinRepository.update({ stock: stockUpdated }, {
+            where: {
+                coin_id: coinId
+            }
+        })
+    }
 }
