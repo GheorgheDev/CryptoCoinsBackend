@@ -24,9 +24,11 @@ export class CoinService {
             })
     }
 
-    async getAllCoinsWithUserCoins(userId: string): Promise<any[]> { // TODO: quitar el any
-        return await this._coinRepository.getAllCoinsWithUserCoins(userId)
-            .then(coins => coins);
+    async getAllCoins(): Promise<CoinDto[]> {
+        return await this._coinRepository.getAllCoins()
+            .then(coinsAsPojo => {
+                return coinsAsPojo.map(coinAsPojo => this.parsePojoIntoDto(coinAsPojo));
+            });
     }
 
     parseDtoIntoPojo(coinDto: CoinDto): CoinPojo {

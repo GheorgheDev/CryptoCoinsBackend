@@ -1,4 +1,3 @@
-import { QueryTypes } from "sequelize";
 import { connect } from "../config/db.config";
 import { CoinPojo } from "../models/coin.model";
 
@@ -20,18 +19,9 @@ export class CoinRepository {
         }
     }
 
-    async getAllCoinsWithUserCoins(userId: string): Promise<any[]> { // TODO: quitar el any
+    async getAllCoins(): Promise<CoinPojo[]> {
         try {
-            return await this._db.sequelize.query(`SELECT coin.coin_id, name, value, image, stock, amount 
-                                                   FROM coin 
-                                                   FULL JOIN user_coins 
-                                                   ON user_coins.coin_id = coin.coin_id
-                                                   WHERE user_id IS NULL OR user_id = ?
-                                                   ORDER BY amount;`,
-                {
-                    replacements: [userId],
-                    type: QueryTypes.SELECT
-                });
+            return await this._coinRepository.findAll();
         } catch (exception) {
             console.error(exception);
             return [];

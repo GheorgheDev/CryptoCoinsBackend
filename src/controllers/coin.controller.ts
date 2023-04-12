@@ -12,9 +12,9 @@ export const coinController = {
             res.sendStatus(500);
         }
     },
-    getAllCoinsWithUserCoins: (req: any, res: any) => {
+    getAllCoins: (_req: any, res: any) => {
         try {
-            coinService.getAllCoinsWithUserCoins(req.params.id)
+            coinService.getAllCoins()
                 .then(coins => res.json(coins))
         } catch (exception) {
             console.error(exception);
