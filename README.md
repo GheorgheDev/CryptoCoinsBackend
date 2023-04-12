@@ -6,7 +6,7 @@
 
 # EndPoints
 
-http://localhost:3000/api/users/create/user:
+http://localhost:3000/api/users/create/user: 
 
 - Petición post que recibe en el body un nuevo usuario y lo guarda en la tabla user.
 
