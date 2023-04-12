@@ -21,3 +21,11 @@ export interface UserCoinsDto {
     coin_id: string;
     amount: number;
 }
+
+export interface CoinsBuyOrSellDto {
+    user_id: string;
+    coin_id: string;
+    amount: number;
+    wallet: number;
+    stock: number;
+}
